@@ -1,5 +1,4 @@
 import os
-
 class BinaryTree:
     def __init__(self, value, left=None, right=None, parent=None):
         self.value = value
@@ -20,26 +19,15 @@ class BinaryTree:
                 self.right.insert(val)
 
     @classmethod
-    def build_from_last_element(cls, data_list):
+    def build_from_list(cls, data_list):
         if not data_list:
             return None
-        
-
-        root = cls(data_list[-1])
-        
-        for value in reversed(data_list[:-1]):
+            
+        root = cls(data_list[0])
+        for value in data_list[1:]:
             root.insert(value)
             
         return root
-
-    def print_reverse_inorder(self):
-        if self.right is not None:
-            self.right.print_reverse_inorder()
-            
-        print(self.value, end=' ')
-        
-        if self.left is not None:
-            self.left.print_reverse_inorder()
 
 def draw_tree_in_console(root_node):
     def _display_aux(node):
@@ -88,25 +76,24 @@ def draw_tree_in_console(root_node):
     lines, *_ = _display_aux(root_node)
     for line in lines:
         print(line)
+
 def main():
     filename = "invertion_in_order_tree_data.txt"
-    
-    if not os.path.exists(filename):
-        pass
     
     try:
         with open(filename, 'r', encoding='utf-8') as file:
             data = file.read().split()
-            inorder_data = [int(x) for x in data]
-            
-
-        root = BinaryTree.build_from_last_element(inorder_data)
+            original_list = [int(x) for x in data]
+        reversed_list = original_list[::-1]
+        
+        print("Вивід списку у зворотньому порядку:")
+        for num in reversed_list:
+            print(num, end=" ")
+        print("\n")
+        
+        root = BinaryTree.build_from_list(reversed_list)
         
         if root:
-            print("Вивід дерева у зворотньому порядку:")
-            root.print_reverse_inorder()
-            print("\n") 
-            
             print("Графічне відображення дерева:")
             draw_tree_in_console(root)
             print()
