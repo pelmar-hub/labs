@@ -1,4 +1,4 @@
-from lab_8 import build_transition_table, fsm_search
+from lab_9 import build_transition_table, fsm_search
 import unittest
 
 class TestFsmSearch(unittest.TestCase):
